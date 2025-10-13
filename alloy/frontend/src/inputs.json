@@ -1,0 +1,249 @@
+{
+  "required": [
+    {
+      "key": "email_address",
+      "type": "string",
+      "description": "Primary email address",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_line_1",
+      "type": "string",
+      "description": "Address field 1",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_country_code",
+      "type": "string",
+      "description": "Two character ISO 3166-1 alpha-2 country code",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "phone_number",
+      "type": "string",
+      "description": "Primary phone number",
+      "regex": "",
+      "properties": {}
+    }
+  ],
+  "optional": [
+    {
+      "key": "name_first",
+      "type": "string",
+      "description": "First name",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "name_last",
+      "type": "string",
+      "description": "Last name",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_line_2",
+      "type": "string",
+      "description": "Address field 2",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_city",
+      "type": "string",
+      "description": "Address city",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_state",
+      "type": "string",
+      "description": "State or province",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "address_postal_code",
+      "type": "string",
+      "description": "Address postal code",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "document_ssn",
+      "type": "string",
+      "description": "US social security number",
+      "regex": "^\\d{9}$",
+      "properties": {}
+    },
+    {
+      "key": "document_ssn_last4",
+      "type": "string",
+      "description": "Last four digits of a US social security number",
+      "regex": "^\\d{4}$",
+      "properties": {}
+    },
+    {
+      "key": "document_license",
+      "type": "string",
+      "description": "US issued drivers license number",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "document_license_state",
+      "type": "string",
+      "description": "US state",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "birth_date",
+      "type": "date",
+      "description": "Birth date - valid ISO 8601 format",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "ip_address_v4",
+      "type": "string",
+      "description": null,
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "ip_address_v6",
+      "type": "string",
+      "description": null,
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "socure_session_id",
+      "type": "string",
+      "description": null,
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "partner_id",
+      "type": "string",
+      "description": null,
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "business_name",
+      "type": "string",
+      "description": "Business name",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "business_address_country_code",
+      "type": "string",
+      "description": "Two character ISO 3166-1 alpha-2 country code",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "bank_account_number",
+      "type": "string",
+      "description": "Bank account number",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "bank_routing_number",
+      "type": "string",
+      "description": "Bank routing number",
+      "regex": "",
+      "properties": {}
+    },
+    {
+      "key": "bank_accounts",
+      "type": "array",
+      "description": null,
+      "regex": "",
+      "elements": {
+        "type": "object",
+        "description": null,
+        "regex": "",
+        "properties": {
+          "required": [],
+          "optional": [
+            {
+              "key": "account_number",
+              "type": "string",
+              "description": "Bank account number",
+              "regex": "",
+              "properties": {}
+            },
+            {
+              "key": "routing_number",
+              "type": "string",
+              "description": "Bank routing number",
+              "regex": "",
+              "properties": {}
+            },
+            {
+              "key": "type",
+              "type": "string",
+              "description": null,
+              "regex": "",
+              "properties": {}
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "business_federal_ein",
+      "type": "string",
+      "description": "Business Federal Employer Identification Number",
+      "regex": "^\\d{9}$",
+      "properties": {}
+    },
+    {
+      "key": "user_consent",
+      "type": "boolean",
+      "description": "Required for eCBSV module: Indicates if the consumer has provided consent.",
+      "regex": "",
+      "properties": {}
+    }
+  ],
+  "or": [
+    {
+      "required": [
+        {
+          "key": "business_name",
+          "type": "string",
+          "description": "Business name",
+          "regex": "",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "required": [
+        {
+          "key": "name_first",
+          "type": "string",
+          "description": "First name",
+          "regex": "",
+          "properties": {}
+        },
+        {
+          "key": "name_last",
+          "type": "string",
+          "description": "Last name",
+          "regex": "",
+          "properties": {}
+        }
+      ]
+    }
+  ]
+}
