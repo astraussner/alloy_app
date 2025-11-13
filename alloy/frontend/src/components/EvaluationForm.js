@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import validationSchema from '../inputs.json';
 import './EvaluationForm.css';
 
@@ -81,6 +83,44 @@ const EvaluationForm = () => {
       setErrors(prev => ({
         ...prev,
         [name]: null
+      }));
+    }
+
+    // Clear submit status when user makes changes
+    if (submitStatus) {
+      setSubmitStatus(null);
+    }
+  };
+
+  const parseDateString = (dateString) => {
+    if (!dateString) return null;
+    // Parse YYYY-MM-DD format without timezone issues
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const formatDateToString = (date) => {
+    if (!date) return '';
+    // Format Date object to YYYY-MM-DD format without timezone issues
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleDateChange = (date) => {
+    // Convert Date object to YYYY-MM-DD format
+    const formattedDate = formatDateToString(date);
+    setFormData(prev => ({
+      ...prev,
+      birth_date: formattedDate
+    }));
+
+    // Clear error for this field when user selects a date
+    if (errors.birth_date) {
+      setErrors(prev => ({
+        ...prev,
+        birth_date: null
       }));
     }
 
@@ -297,17 +337,20 @@ const EvaluationForm = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="birth_date">
-                  Date of Birth (YYYY-MM-DD) {!isFieldRequired('birth_date') && <span className="optional">(optional)</span>}
+                  Date of Birth {!isFieldRequired('birth_date') && <span className="optional">(optional)</span>}
                 </label>
-                <input
-                  type="text"
+                <DatePicker
                   id="birth_date"
-                  name="birth_date"
-                  value={formData.birth_date}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="YYYY-MM-DD"
-                  className={errors.birth_date ? 'error' : ''}
+                  selected={parseDateString(formData.birth_date)}
+                  onChange={handleDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select date"
+                  className={errors.birth_date ? 'error datepicker-input' : 'datepicker-input'}
+                  maxDate={new Date()}
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode="select"
+                  isClearable
                 />
                 {errors.birth_date && <span className="error-message">{errors.birth_date}</span>}
               </div>

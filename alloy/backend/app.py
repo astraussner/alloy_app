@@ -5,6 +5,7 @@ import json
 from datetime import datetime
 import os
 import base64
+import time
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -129,12 +130,34 @@ def submit_form():
         # Use sandbox URL
         alloy_url = 'https://sandbox.alloy.co/v1/evaluations'
         
-        response = requests.post(
-            alloy_url,
-            headers=headers,
-            json=alloy_payload,
-            timeout=30
-        )
+        # Retry logic with exponential backoff for 429 status codes
+        max_retries = 3
+        retry_count = 0
+        response = None
+        
+        while retry_count <= max_retries:
+            response = requests.post(
+                alloy_url,
+                headers=headers,
+                json=alloy_payload,
+                timeout=30
+            )
+            
+            # If not a 429 error, break out of retry loop
+            if response.status_code != 429:
+                break
+            
+            # If 429 and we haven't exhausted retries, wait and retry
+            if retry_count < max_retries:
+                # Exponential backoff: 2^retry_count seconds
+                wait_time = 2 ** retry_count
+                time.sleep(wait_time)
+                retry_count += 1
+            else:
+                # All retries exhausted
+                return jsonify({
+                    'error': 'Please wait 5 minutes and try again'
+                }), 429
         
         response_data = response.json()
         
